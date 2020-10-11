@@ -13,9 +13,9 @@ pm_caption += "🔹🔸 TELETHON VERSION   :   1.15.0 \n"
 
 pm_caption += "🔸🔹 OFFICIAL CHANNEL   :   [JOIN](https://t.me/THUGUSERBOT)\n"
 
-pm_caption += "🔹🔸 OFFICIAL GROUL     :   COMMING SOON \n"
+pm_caption += "🔹🔸 OFFICIAL GROUL     :   SOON \n"
 
-pm_caption += "🔹🔸 COPY RIGHT         :   [THUGSOWNER](https://t.me/THUGS_OFFICIAL)\n"
+pm_caption += "🔹🔸 COPY RIGHT         :   [THUGS](https://t.me/THUGS_OFFICIAL)\n"
 
 pm_caption += " [...▄███▄███▄\n....█████████\n.......▀█████▀\n............▀█▀\n](https://t.me/THUGUSERBOT)\n"
 #@command(outgoing=True, pattern="^.alive$")
