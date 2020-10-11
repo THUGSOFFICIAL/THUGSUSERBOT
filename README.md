@@ -15,7 +15,7 @@ This is the one and only official THUGS USERBOT Made By [THUG](https://t.me/THUG
 
 ### The Easy Way
 
-<p align="center"> <a href = "https://github.com/THUGSOFFICIAL/THUGSUSERBOT/tree/master"><img src="https://www.herokucdn.com/deploy/button.svg" alt="hmm" width="250px"></a></p>
+<p align="center"> <a href = "https://heroku.com/deploy?template=https://github.com/THUGSOFFICIAL/THUGSUSERBOT/tree/master"><img src="https://www.herokucdn.com/deploy/button.svg" alt="hmm" width="250px"></a></p>
 
 # Generate String Session From Below Links:-
 
