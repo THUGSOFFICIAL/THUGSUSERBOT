@@ -4,8 +4,8 @@ from userbot.utils import admin_cmd
 from userbot import ALIVE_NAME
 from telethon.tl.types import ChannelParticipantsAdmins
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Hell User"
-PM_IMG = "https://telegra.ph/file/f34675b4e94d4290c0b6b.mp4"
-pm_caption = "🔱 **Hêllẞø† Is Online** 🔱\n\n"
+PM_IMG = "https://telegra.ph/file/d3c5d84eae40c2e204bd6.jpg"
+pm_caption = "🔱 **GANGSTER NEVER DIE 😎😎** 🔱\n\n"
 
 pm_caption += f"🔸🔹 **THUG USER**     :   {DEFAULTUSER}\n"
 
