@@ -15,7 +15,7 @@ pm_caption += "🔸🔹 OFFICIAL CHANNEL   :   [JOIN](https://t.me/THUGUSERBOT)\
 
 pm_caption += "🔹🔸 OFFICIAL GROUL     :   COMMING SOON \n"
 
-pm_caption += "🔹🔸 COPY RIGHT         :   [THUGS OWNER](https://t.me/THUGS_OFFICIAL)\n"
+pm_caption += "🔹🔸 COPY RIGHT         :   [THUGSOWNER](https://t.me/THUGS_OFFICIAL)\n"
 
 pm_caption += " [...▄███▄███▄\n....█████████\n.......▀█████▀\n............▀█▀\n](https://t.me/THUGUSERBOT)\n"
 #@command(outgoing=True, pattern="^.alive$")
