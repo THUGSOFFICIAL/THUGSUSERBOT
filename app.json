@@ -1,7 +1,7 @@
 {
-  "name": "Hêllẞø†",
-  "description": "The best userbot made by @Kraken_The_BadASS. Made with Love And Phone And Hardwork and... Nhi aur kahi se to nhi bana....For Support Join @HellBot_Official ",
-  "logo": "https://telegra.ph/file/7decf235312af8536e9aa.jpg ",
+  "name": "THUGSUSERBOT",
+  "description": "The best userbot made by @THUGS OFFICIAL with the help of a pero friend @Kraken_The_Badass please join support group for thug  ",
+  "logo": "https://telegra.ph/file/b347533319e234ff7e81e.jpg ",
     "keywords": [
     "telegram",
     "userbot",
@@ -9,9 +9,9 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/HellBoy-OP/HellBot/",
-  "website": "https://github.com/HellBoy-OP/HellBot/",
-  "success_url": "https://t.me/HellBot_Official",
+  "repository": "https://github.com/THUGSOFFICIAL/THUGSUSERBOT",
+  "website": "https://github.com/THUGSOFFICIAL/THUGSUSERBOT",
+  "success_url": "https://t.me/THUGUSERBOT",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable heroku.",
@@ -28,7 +28,7 @@
       "required": false
     },
     "ALIVE_NAME": {
-      "description": "Fill your Full name or Username like @Kraken_The_BadASS.",
+      "description": "Fill your Full name or Username like @THUGSOFFICIAL.",
       "value": "",
       "required": false
     },
@@ -144,15 +144,17 @@
     },
     "NO_OF_BUTTONS_DISPLAYED_IN_H_ME_CMD": {
       "description": " Set The Amount Of Buttons Displayed In Help Command",
+      "value":"5",
       "required": true
     },
     "NO_OF_COLUMS_DISPLAYED_IN_H_ME_CMD": {
       "description": "Set The Amount Of Rows You Want To Displayed In Help Command default 2",
+      "value":"2",
       "required": true
     },
     "EMOJI_TO_DISPLAY_IN_HELP": {
       "description": "Set The emojies You Want to Add In Help Command!!",
-      "value": "",
+      "value": "🤖",
       "required": true
     }, 
     "TZ": {
