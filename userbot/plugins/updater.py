@@ -20,7 +20,7 @@ requirements_path = path.join(
 HEROKU_API_KEY = Var.HEROKU_API_KEY
 HEROKU_APP_NAME = Var.HEROKU_APP_NAME
 GIT_REPO_NAME = "THUGSUSERBOT"
-UPSTREAM_REPO_URL = "https://github.com/THUGSOFFICIAL/THUGSUSERBOT.git"
+UPSTREAM_REPO_URL = "https://github.com/THUGSOFFICIAL/THUGSUSERBOT"
 
 async def gen_chlog(repo, diff):
     ch_log = ''
@@ -85,7 +85,7 @@ async def upstream(ups):
             f'**[UPDATER]:**` Looks like you are using your own custom branch ({ac_br}). '
             'in that case, Updater is unable to identify '
              'which branch is to be merged. '
-            'Please checkout the official branch of Hêllẞø†`')
+            'Please checkout the official branch of THUGSBOT`')
         repo.__del__()
         return
 
@@ -135,7 +135,7 @@ async def upstream(ups):
         heroku_app = None
         heroku_applications = heroku.apps()
         if not Var.HEROKU_APP_NAME:
-            await ups.edit('`Please set up the HEROKU_APP_NAME variable to be able to update Hêllẞø†.`')
+            await ups.edit('`Please set up the HEROKU_APP_NAME variable to be able to update THUGSBOT.`')
             repo.__del__()
             return
         for app in heroku_applications:
