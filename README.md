@@ -1,6 +1,8 @@
 # THUG USERBOT
 This is a userbot made for telegram. I made this userbot with help of all other userbots available in telegram. All credits goes to its Respective Owners....
 
+# THERE ARE SOME PLUGS I USE IN BOT ARE NOT MADE BY ME ALL CREDIT GOES TO THEIR OWNER 🙂
+
 This is the one and only official THUGS USERBOT Made By [THUG](https://t.me/THUGS_OFFICIAL) with the help of a kind guy [PIROBOY](https://t.me/Kraken_The_Badass) :) Tnx for choosing THUGS USERBOT Enjoy you bot :)
 
 
