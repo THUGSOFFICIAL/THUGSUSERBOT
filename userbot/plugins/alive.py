@@ -4,7 +4,7 @@ from userbot.utils import admin_cmd
 from userbot import ALIVE_NAME
 from telethon.tl.types import ChannelParticipantsAdmins
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "Hell User"
-PM_IMG = "https://telegra.ph/file/d3c5d84eae40c2e204bd6.jpg"
+PM_IMG = "https://telegra.ph/file/4c7467a0f49659007c60d.mp4"
 pm_caption = "🔱 **GANGSTER NEVER DIE 😎😎** 🔱\n\n"
 
 pm_caption += f"🔸🔹 **THUG USER**     :   {DEFAULTUSER}\n"
@@ -17,7 +17,6 @@ pm_caption += "🔹🔸 OFFICIAL GROUL     :   SOON \n"
 
 pm_caption += "🔹🔸 COPY RIGHT         :   [THUGS](https://t.me/THUGS_OFFICIAL)\n"
 
-pm_caption += " [...▄███▄███▄\n....█████████\n.......▀█████▀\n............▀█▀\n](https://t.me/THUGUSERBOT)\n"
 #@command(outgoing=True, pattern="^.alive$")
 @borg.on(admin_cmd(pattern=r"alive"))
 async def amireallyalive(alive):
