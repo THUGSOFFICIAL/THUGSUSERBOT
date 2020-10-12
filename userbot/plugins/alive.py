@@ -4,14 +4,14 @@ from userbot.utils import admin_cmd
 from userbot import ALIVE_NAME
 from telethon.tl.types import ChannelParticipantsAdmins
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "THUGUSER"
-PM_IMG = "https://telegra.ph/file/08f9e4fb209794b13c1fe.jpg"
+PM_IMG = "https://telegra.ph/file/0ae5655086bc6f580d6e5.mp4"
 pm_caption = "🥰🥰**THUGBOT IS ONLINE DUDE** 🥰🥰\n\n"
 
 pm_caption += f"💳💳 **MASTER**💳💳       :   {DEFAULTUSER}\n"
 
 pm_caption += "🙏🙏**SUPPORT**🙏🙏      :   [JOIN](https://t.me/THUGUSERBOT)\n"
 
-pm_caption += "🤖🤖**UPDATES**🤖🤖       :   SOON \n"
+pm_caption += "🤖🤖**UPDATES**🤖🤖      :   SOON \n"
 
 pm_caption += "👹👹**SPAM GRP**👹👹    :   [SPAM](https://t.me/joinchat/UKclkxutUAu1SGLHZ9hdkw)\n"
       
