@@ -13,7 +13,7 @@ pm_caption += "🙏🙏**SUPPORT**🙏🙏      :   [JOIN](https://t.me/THUGUSER
 
 pm_caption += "🤖🤖**UPDATES**          :   SOON \n"
 
-pm_caption += "👹👹**SPAM GRP**👹👹     :.  [SPAM](https://t.me/joinchat/UKclkxutUAu1SGLHZ9hdkw)
+pm_caption += "👹👹**SPAM GRP**👹👹     :   [SPAM](https://t.me/joinchat/UKclkxutUAu1SGLHZ9hdkw)"
       
 pm_caption += "🗽🗽**MY GOD**🗽🗽       :   [THUGS](https://t.me/THUGS_OFFICIAL)\n"
 
