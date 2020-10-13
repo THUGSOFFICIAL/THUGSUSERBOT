@@ -13,7 +13,8 @@ This is the one and only official THUGS USERBOT Made By [THUG](https://t.me/THUG
 
 
 # For any query:-
-### [Join Here For Any Query](https://t.me/THUGUSERBOT) yep
+### [Join Here For Any Query](https://t.me/THUGUSERBOT) y
+
 
 # FORK AT YOUR OWN RISK
 ## Installing
