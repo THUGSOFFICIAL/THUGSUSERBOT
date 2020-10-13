@@ -1,4 +1,4 @@
-#Ported to THUGSBOT by @Kraken_The_BadASS
+#Ported to THUGSBOT CREDIT:- @Kraken_The_Badass
 #Thanks to @starkxd for this plugin
 #Keep credit bitches...
 
@@ -59,11 +59,11 @@ async def gspider(userbot):
     sender = await lol.get_sender()
     me = await lol.client.get_me()
     if not sender.id == me.id:
-        friday = await lol.reply("Gbanning This Retard DumbAss😁😁")
+        friday = await lol.reply("Gbanning is progress 🤭🤭 by THUG BOT")
     else:
         friday = await lol.edit("Wait Processing.....")
     me = await userbot.client.get_me()
-    await friday.edit(f"Global Ban Is Coming ! Wait And Watch You bitch😎🔥")
+    await friday.edit(f"You are going to kicked from 1k+ channels jst w8 and watch 👁️👁️")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
     await userbot.get_chat()
