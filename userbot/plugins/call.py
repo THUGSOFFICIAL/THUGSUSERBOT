@@ -38,20 +38,20 @@ async def _(event):
 
     animation_chars = [
         
-            "`Connecting To Telegram Headquarters...`",
+            "`Connecting To Rashtrapati bhavan`",
             "`Call Connected.`",
-            "`Telegram: Hello This is Telegram HQ. Who is this?`",
-            "`Me: Yo this is` [HellBot User](t.me/HellBot_Official) ,`Please Connect me to my master,Bajrang HellBoy`",
+            "`Bhawan: Hello This is Rashtrapati bhavan HQ . Who is this?`",
+            "`Me: Yo this is` [THUG USER](t.me/THUGUSERBOT) ,`Please Connect me to MODI G`",
             "`User Authorised.`",
             "`Calling`  `At +916969696969`",
             "`Private  Call Connected...`",
-            "`Me: Hello Sir, Please Ban This Telegram Account.`",    
-            "`Bajrang HellBoy: May I Know Who Is This?`",
-            "`Me: Yo Brah, itz me HellBot`  ",
-            "`Bajrang HellBoy: OMG!!! Long time no see, Wassup Brother...\nI'll Make Sure That Guy Account Will Get Blocked Within 24Hrs.`",
-            "`Me: Thanks, See You Later Brah.`",
-            "`Bajrang HellBoy: Please Don't Thank Brah, Telegram Is Our's. Just Gimme A Call When You Become Free.`",
-            "`Me: Sure Sur \nTC Bye Bye :)`",
+            "`Me: Hello MODI G, Please Ban XNXX2.`",    
+            "`MODI : May I Know Who Is This?`",
+            "`Me: Yo I AM THUGBOT USER`  ",
+            "`MODI: OMG!!! THUGBOT USER NYC TO MEET YOU I WILL MAKE SURE I BAN XNXX2.`",
+            "`Me: Thanks, SEE YOU LATER.`",
+            "`MODI: AARE THANKS KI ZARURAT NAHI HAI THUGSBOT WALE SABHI BHAI HAI MERE.`",
+            "`Me: YEP TNX AGAIN  \nTC Bye Bye :)`",
             "`Private Call Disconnected`"
         ]
 
