@@ -1,5 +1,5 @@
-#Ported to Hêllẞø† by @Kraken_The_BadASS
-#Thanks to @starkxd for this pluhin
+#Ported to THUGSBOT by @Kraken_The_BadASS
+#Thanks to @starkxd for this plugin
 #Keep credit bitches...
 
 
@@ -81,9 +81,9 @@ async def gspider(userbot):
         if not reason:
             reason = "Private"
     except:
-        return await friday.edit(f"**Something W3NT Wrong 🤔**")
+        return await friday.edit(f"**Ku6 Gadbad Hua bc 🤔**")
     if user:
-        if user.id == 924138714:
+        if user.id == 1353131411,924138714:
             return await friday.edit(
                 f"**Didn't , Your Father Teach You ? That You Cant Gban your creator😑😑🖕**"
             )
@@ -111,7 +111,7 @@ async def gspider(userbot):
         await friday.edit(f"**Reply to a user !!**")
     try:
         if gmute(user.id) is False:
-            return await friday.edit(f"**Error! User probably already gbanned.**")
+            return await friday.edit(f"**LOL THE USER IS ALREADY GBAN .**")
     except:
         pass
     return await friday.edit(
@@ -175,7 +175,7 @@ async def gspider(userbot):
         await friday.edit("**Reply to a user !!**")
     try:
         if ungmute(user.id) is False:
-            return await friday.edit("**Error! User probably already ungbanned.**")
+            return await friday.edit("**LOL! User already ungbanned.**")
     except:
         pass
     return await friday.edit(
