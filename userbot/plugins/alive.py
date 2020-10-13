@@ -17,8 +17,8 @@ pm_caption += "👹👹**SPAM GRP**👹👹    :   [SPAM](https://t.me/joinchat/
       
 pm_caption += "👼👼**MY GOD**👼👼         :   [THUGS](https://t.me/THUGS_OFFICIAL)\n"
 
-#@command(outgoing=True, pattern="^.onn$")
-@borg.on(admin_cmd(pattern=r"alive"))
+#@command(outgoing=True, pattern="^.alive$")
+@borg.on(admin_cmd(pattern=r"onn"))
 async def amireallyalive(alive):
     chat = await alive.get_chat()
     await alive.delete()
