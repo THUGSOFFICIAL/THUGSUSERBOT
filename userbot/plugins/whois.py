@@ -133,10 +133,10 @@ async def get_full_user(event):
     return None, "No input is found"
 
 
-@borg.on(admin_cmd(pattern="whois(?: |$)(.*)"))
+@borg.on(admin_cmd(pattern="id(?: |$)(.*)"))
 async def who(event):
     cat = await edit_or_reply(
-        event, "`Sit tight while I steal some data from This guuyyy...`"
+        event, "`HMM W8 I AM GETTING THE USER INFORMATION 🤫🤫🤫...`"
     )
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -231,7 +231,7 @@ async def fetch_info(replied_user, event):
     )
     username = "@{}".format(username) if username else ("This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
-    caption = "<b>USER INFO from Hêllẞø†'s database :</b>\n\n"
+    caption = "<b>USER INFO from **THUGS** database :</b>\n\n"
     caption += f"👤First Name: {first_name} {last_name}\n"
     caption += f"🤵Username: {username}\n"
     caption += f"🔖ID: <code>{user_id}</code>\n"
