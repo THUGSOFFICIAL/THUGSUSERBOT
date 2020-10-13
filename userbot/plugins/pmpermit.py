@@ -34,7 +34,7 @@ USER_BOT_NO_WARN = ("`Hello, i am thugsbot ⚠️.You have found your way here t
 
 
 if Var.PRIVATE_GROUP_ID is not None:
-    @borg.on(admin_cmd(pattern="approve ?(.*)"))
+    @borg.on(admin_cmd(pattern="verified ?(.*)"))
     async def approve_p_m(event):
         if event.fwd_from:
            return
@@ -69,7 +69,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                     await rko.delete()
 
 
-    @command(pattern="^.block ?(.*)")
+    @command(pattern="^.getout ?(.*)")
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -88,7 +88,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 await asyncio.sleep(3)
                 await event.client(functions.contacts.BlockRequest(chat.id))
 
-    @command(pattern="^.disapprove ?(.*)")
+    @command(pattern="^.nonverify ?(.*)")
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -106,7 +106,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 
     
 
-    @command(pattern="^.listapproved")
+    @command(pattern="^.listverified")
     async def approve_p_m(event):
         if event.fwd_from:
             return
