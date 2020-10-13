@@ -17,8 +17,6 @@ pm_caption += "👹👹**SPAM GRP**👹👹    :   [SPAM](https://t.me/joinchat/
       
 pm_caption += "👼👼**MY GOD**👼👼         :   [THUGS](https://t.me/THUGS_OFFICIAL)\n\n"
 
-pm_caption += "👾👾**REPO**👾👾.             :  [REPO](https://github.com/THUGSOFFICIAL/THUGSUSERBOT)\n"
-
 #@command(outgoing=True, pattern="^.alive$")
 @borg.on(admin_cmd(pattern=r"zinda"))
 async def amireallyalive(alive):
