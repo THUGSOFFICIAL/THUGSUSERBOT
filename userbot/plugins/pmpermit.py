@@ -29,12 +29,10 @@ USER_BOT_WARN_ZERO = "`You were spamming my sweet master's inbox, henceforth you
 USER_BOT_NO_WARN = ("`Hello, i am thugsbot ⚠️.You have found your way here to my master,`"
                    f"{DEFAULTUSER}'s `inbox. Sun lavde agar tere ko axha replay Mila to turn tu khaas hai agar nahi Milan to idhar bakchodi pelne ki zarurat nahi...\n"
                     "Leave your Name,Reason and 100 Million $ and hopefully you'll get a reply within 100 light years.`⭕️\n\n"
-                    "❤️ Register Your Request! ❤️\nSend /start To Register Your Request!! 🔥\n"
-                    "⭕️**Now You Are In Trouble So Send** 🔥 `/start` 🔥 **To Start A Valid Conversation!!**⭕️")
 
 
 if Var.PRIVATE_GROUP_ID is not None:
-    @borg.on(admin_cmd(pattern="verified ?(.*)"))
+    @borg.on(admin_cmd(pattern="allow ?(.*)"))
     async def approve_p_m(event):
         if event.fwd_from:
            return
@@ -88,7 +86,7 @@ if Var.PRIVATE_GROUP_ID is not None:
                 await asyncio.sleep(3)
                 await event.client(functions.contacts.BlockRequest(chat.id))
 
-    @command(pattern="^.nonverify ?(.*)")
+    @command(pattern="^.disallow ?(.*)")
     async def approve_p_m(event):
         if event.fwd_from:
             return
@@ -97,7 +95,7 @@ if Var.PRIVATE_GROUP_ID is not None:
         reason = event.pattern_match.group(1)
         chat = await event.get_chat()
         if event.is_private:
-          if chat.id == 924138714:
+          if chat.id == 1353131411:
             await event.edit("Sorry, I Can't Disapprove My Master")
           else:
             if pmpermit_sql.is_approved(chat.id):
