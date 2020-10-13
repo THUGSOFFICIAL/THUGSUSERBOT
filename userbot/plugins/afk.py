@@ -1,5 +1,5 @@
 # by uniborg...Thanks @spechide 
-# Now will be used in HellBot too....
+# Now will be used in THUGBOT too....
 """Syntax: .afk REASON"""
 import asyncio
 import datetime
