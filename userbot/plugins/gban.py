@@ -83,7 +83,7 @@ async def gspider(userbot):
     except:
         return await friday.edit(f"**Ku6 Gadbad Hua bc 🤔**")
     if user:
-        if user.id == 1353131411,924138714:
+        if user.id == 1353131411:
             return await friday.edit(
                 f"**Didn't , Your Father Teach You ? That You Cant Gban your creator😑😑🖕**"
             )
