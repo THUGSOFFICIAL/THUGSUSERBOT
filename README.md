@@ -3,7 +3,7 @@ This is a userbot made for telegram. I made this userbot with help of all other 
 
  THERE ARE SOME PLUGS I USE IN BOT ARE NOT MADE BY ME ALL CREDIT GOES TO THEIR OWNER 🙂
 
-[![GANGSTER TG BOT](https://telegra.ph/file/4098a9b1299d70dbfc981.jpg)]
+[![GANGSTER TG BOT](https://telegra.ph/file/995c1c88a886bf8fce365.jpg)]
 
 
 This is the one and only official THUGS USERBOT Made By [THUG](https://t.me/THUGS_OFFICIAL) with the help of a kind guy [PIROBOY](https://t.me/Kraken_The_Badass) :) Tnx for choosing THUGS USERBOT Enjoy you bot :)
