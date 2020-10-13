@@ -135,7 +135,7 @@ async def upstream(ups):
         heroku_app = None
         heroku_applications = heroku.apps()
         if not Var.HEROKU_APP_NAME:
-            await ups.edit('`Please set up the HEROKU_APP_NAME variable to be able to update Hêllẞø†.`')
+            await ups.edit('`Please set up the HEROKU_APP_NAME variable to be able to update THUGBOT.`')
             repo.__del__()
             return
         for app in heroku_applications:
