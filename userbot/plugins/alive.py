@@ -11,13 +11,13 @@ pm_caption += f"💳💳 **MASTER**💳💳       :   {DEFAULTUSER}\n"
 
 pm_caption += "🙏🙏**SUPPORT**🙏🙏      :   [JOIN](https://t.me/THUGUSERBOT)\n"
 
-pm_caption += "🤖🤖**UPDATES**🤖🤖      :   [SOON](https://t.me/joinchat/AAAAAEqfF7nJrxgQCLiHFg) \n"
+pm_caption += "🤖🤖**UPDATES**🤖🤖      :   [JOIN](https://t.me/joinchat/AAAAAEqfF7nJrxgQCLiHFg) \n"
 
 pm_caption += "👹👹**SPAM GRP**👹👹    :   [SPAM](https://t.me/joinchat/UKclkxutUAu1SGLHZ9hdkw)\n"
       
 pm_caption += "👼👼**MY GOD**👼👼         :   [THUGS](https://t.me/THUGS_OFFICIAL)\n"
 
-pm_caption += "👾👾**REPO**👾👾.           : [REPO](https://github.com/THUGSOFFICIAL/THUGSUSERBOT)\n"
+pm_caption += "👾👾**REPO**👾👾.            : [REPO](https://github.com/THUGSOFFICIAL/THUGSUSERBOT)\n"
 
 #@command(outgoing=True, pattern="^.alive$")
 @borg.on(admin_cmd(pattern=r"zinda"))
