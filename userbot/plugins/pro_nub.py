@@ -25,7 +25,7 @@ async def _(event):
 
         return
 
-    animation_interval = 5
+    animation_interval = 2
     
 
     animation_ttl = range(0, 9)
@@ -59,7 +59,7 @@ async def _(event):
 
         return
 
-    animation_interval = 0.5
+    animation_interval = 2
     
 
     animation_ttl = range(0, 9)
@@ -92,7 +92,7 @@ async def _(event):
 
         return
 
-    animation_interval = 0.5
+    animation_interval = 2
     
 
     animation_ttl = range(0, 8)
@@ -100,14 +100,14 @@ async def _(event):
     await event.edit("You Pro")
 
     animation_chars = [
-            "EvErYbOdY",
-            "iZ",
-            "PeRu" ,
-            "uNtiL",
-            "YoU",
-            "aRriVe",
+            "**EVERYBODY",
+            "**IS**",
+            "**BIGGESTTTT PEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" ,
+            "**UNTILL**",
+            "**You**",
+            "**ARRIVE**",
             "😈",
-            "EvErYbOdY iZ PeRu uNtiL YoU aRriVe 😈"
+            "**Everyone is Biggest perooooooooooooooooooooooooooooooooooooooooooooooooooooooooo untill you arrive** 😈"
         ]
 
     for i in animation_ttl:
