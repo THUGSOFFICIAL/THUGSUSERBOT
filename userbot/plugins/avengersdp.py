@@ -20,13 +20,13 @@ from time import sleep
 
 COLLECTION_STRING = [
 
-  "avengers-logo-wallpaper",
+  "Xnxx-miakhalifa..",
 
-  "avengers-hd-wallpapers-1080p",
+  "sunnyleonie-1080p",
 
-  "avengers-iphone-wallpaper",
+  "Hitomi-tanaka-chut",
 
-  "iron-man-wallpaper-1920x1080",
+  "Lana-rhodes-gulabi-chut",
 
   "iron-man-wallpapers"
 
@@ -56,11 +56,11 @@ async def animepp():
 
     urllib.request.urlretrieve(fy,"donottouch.jpg")
 
-@borg.on(admin_cmd(pattern="avengersdp ?(.*)"))
+@borg.on(admin_cmd(pattern="porndp ?(.*)"))
 
 async def main(event):
 
-    await event.edit("**Starting Avengers Profile Pic...\n\nDone !!! Check Your DP\n\n\n         @HellBot_Official**")
+    await event.edit("**Starting Avengers Profile Pic...\n\nDone !!! Check Your DP\n\n\n     **")
 
     while True:
 
