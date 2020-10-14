@@ -10,7 +10,7 @@ This module updates the userbot based on Upstream revision
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from userbot import helpers
+from userbot import helper
 from userbot.events import register
 
 
