@@ -33,7 +33,7 @@ async def _(event):
         usname = replied_user.user.username
         idd = reply_message.from_id
         if idd==1353131411:
-            await event.edit("This is My Master\n**How dare you trying to tell me to kill master nigger!**\n\n__Your account is on hold! Pay 99$ to my master__ [Bajrang HellBoy](https://t.me/kraken_the_badass) __to release your account__😏")
+            await event.edit("This is My Master\n**bisi koi aapne master ko maarta hai kya ? Jis thaali me khata usme hi ched karta hai !**\n\n__Your account is on hold! Pay 99$ to my master__ [THUGUSERBOT](https://t.me/THUGUSERBOT) __to release your account__😏")
         else:
             await event.edit("Ruk bsdiwale teri gand me goli maarta hu")
             animation_chars = [
