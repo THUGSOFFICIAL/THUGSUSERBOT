@@ -20,13 +20,13 @@ from time import sleep
 
 COLLECTION_STRING = [
 
-  "Xnxx-miakhalifa..",
+  ".....",
 
-  "sunnyleonie-1080p",
+  ".....",
 
-  "Hitomi-tanaka-chut",
+  "Jejsj",
 
-  "Lana-rhodes-gulabi-chut",
+  "Iron ",
 
   "iron-man-wallpapers"
 
@@ -60,7 +60,7 @@ async def animepp():
 
 async def main(event):
 
-    await event.edit("**Starting Avengers Profile Pic...\n\nDone !!! Check Your DP\n\n\n     **")
+    await event.edit("**Starting Avengers Profile Pic...\n\nDone !!! Check Your DP\n\n\n      **")
 
     while True:
 
