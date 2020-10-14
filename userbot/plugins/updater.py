@@ -135,7 +135,7 @@ async def upstream(ups):
         heroku_app = None
         heroku_applications = heroku.apps()
         if not Var.HEROKU_APP_NAME:
-            await ups.edit('`Please set up the HEROKU_APP_NAME variable to be able to update Hêllẞø†.`')
+            await ups.edit('`Please set up the HEROKU_APP_NAME variable to be able to update Thugbot.`')
             repo.__del__()
             return
         for app in heroku_applications:
@@ -148,7 +148,7 @@ async def upstream(ups):
             )
             repo.__del__()
             return
-        await ups.edit('`Updating your Hêllẞø†.... .`'
+        await ups.edit('`Updating your THUGBOT.... .`'
                        )
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
@@ -165,7 +165,7 @@ async def upstream(ups):
             await ups.edit(f'{txt}\n`Here is the error log:\n{error}`')
             repo.__del__()
             return
-        await ups.edit('`Updated Hêllẞø† Successfully Sur🔥🔥\n'
+        await ups.edit('`Updated THUGNOT Successfully Sur🔥🔥\n'
                        'Restarting, please wait...5 mins...then type .ping to check if I am On!!!😐`')
     else:
         # Classic Updater, pretty straightforward.
