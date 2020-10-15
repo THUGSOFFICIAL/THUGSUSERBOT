@@ -13,7 +13,7 @@ pm_caption += "🙏🙏**SUPPORT**🙏🙏      :   [JOIN](https://t.me/THUGUSER
 
 pm_caption += "🤖🤖**UPDATES**🤖🤖       :   [JOIN](https://t.me/joinchat/AAAAAEqfF7nJrxgQCLiHFg)\n\n"
       
-pm_caption += "┈┈┈┈┈┈▕▔╲┈┈┈┈┈┈\n┈┈┈┈┈┈┈▏▕┈ⓈⓊⓅⒺⓇ\n┈┈┈┈┈┈┈▏▕▂▂▂┈┈┈\n▂▂▂▂▂▂╱┈▕▂▂▂▏┈┈\n▉▉▉▉▉┈┈┈▕▂▂▂▏┈┈\n▉▉▉▉▉┈┈┈▕▂▂▂▏┈┈\n▔▔▔▔▔▔╲▂▕▂▂▂▏┈┈\n         :   [THUGS](https://t.me/THUGS_OFFICIAL)\n\n"
+pm_caption += "[┈┈┈┈┈┈▕▔╲┈┈┈┈┈┈\n┈┈┈┈┈┈┈▏▕┈ⓈⓊⓅⒺⓇ\n┈┈┈┈┈┈┈▏▕▂▂▂┈┈┈\n▂▂▂▂▂▂╱┈▕▂▂▂▏┈┈\n▉▉▉▉▉┈┈┈▕▂▂▂▏┈┈\n▉▉▉▉▉┈┈┈▕▂▂▂▏┈┈\n▔▔▔▔▔▔╲▂▕▂▂▂▏┈┈]\n(https://t.me/THUGS_OFFICIAL)\n\n"
 
 #@command(outgoing=True, pattern="^.alive$")
 @borg.on(admin_cmd(pattern=r"zinda"))
