@@ -25,7 +25,7 @@ async def download(event):
         await event.edit("`Please ADD Proper Access Token from github.com`") 
         return   
     if Var.GIT_REPO_NAME is None:
-        await event.edit("`Please ADD Proper Github Repo Name of HellBot`")
+        await event.edit("`Please ADD Proper Github Repo Name of THUGSUSERBOT`")
         return 
     mone = await event.reply("Processing ...")
     if not os.path.isdir(GIT_TEMP_DIR):
@@ -76,7 +76,7 @@ async def git_commit(file_name,mone):
             print("Committed File")
             ccess = Var.GIT_REPO_NAME
             ccess = ccess.strip()
-            await mone.edit(f"`Commited On Your Github Repo`\n\n[Your STDPLUGINS](https://github.com/{ccess}/tree/master/userbot/plugins/)")
+            await mone.edit(f"`Commited On Your Github Repo`\n\n[Your STDPLUGINS](https://github.com/THUGSOFFICIAL/THUGSUSERBOT)")
         except:    
             print("Cannot Create Plugin")
             await mone.edit("Cannot Upload Plugin")
