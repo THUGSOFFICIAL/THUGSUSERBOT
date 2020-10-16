@@ -100,9 +100,9 @@ async def _(event):
     await event.edit("You Pro")
 
     animation_chars = [
-            "**EVERYBODY",
+            "**EVERYBODY**",
             "**IS**",
-            "**BIGGESTTTT PEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" ,
+            "**BIGGESTTTT PEROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO**" ,
             "**UNTILL**",
             "**You**",
             "**ARRIVE**",
