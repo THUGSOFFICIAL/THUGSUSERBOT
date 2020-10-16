@@ -224,7 +224,7 @@ async def shalom(e):
         "\n💛🔷💛💛💛💛️💛🔷💛"
         "\n💛💛💛💛💛💛💛💛💛")
 
-@borg.on(admin_cmd(outgoing=True, pattern=r"(?:penis|dick)\s?(.)?"))
+@borg.on(admin_cmd(outgoing=True, pattern=r"(?:landd|lodaa)\s?(.)?"))
 async def emoji_penis(e):
     emoji = e.pattern_match.group(1)
     titid = GAMBAR_TITIT
@@ -241,7 +241,7 @@ async def _(event):
 
         return
 
-    animation_interval = 0.3
+    animation_interval = 1
 
     animation_ttl = range(0, 100)
          
