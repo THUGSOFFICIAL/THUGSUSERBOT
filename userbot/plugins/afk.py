@@ -117,10 +117,10 @@ async def on_afk(event):
         #           afk_since = f"`{int(seconds)}s` **ago**"
         msg = None
         message_to_reply = (
-            f"__My Master Has Been In afk since__ `{total_afk_time}`\nWhere He Is: I don't know buddy..he is a busy person "
-            + f"\n\n__I can't guarantee you that when he will come..__\n**Ohh!!He left a REASON** __BTW__🧐: {reason}"
+            f"__My मास्टर तब से दूर है__ `{total_afk_time}`\nवह कहाँ है: मैं दोस्त नहीं जानता..वह एक व्यस्त व्यक्ति है "
+            + f"\n\n__मैं आपको गारंटी नहीं दे सकता कि वह कब आएगा..__\n**ओह्ह !! उसने एक कारण छोड़ दिया**.🧐: {reason}"
             if reason
-            else f"**Heyy!**\n__I am currently unavailable. Since when, you ask? For {total_afk_time} I guess.__\n\nWhen will I be back? Soon __Whenever I feel like coming back__**(o(^â–½^)o)**  "
+            else f"**Heyy!**\n__मैं वर्तमान में अनुपलब्ध हूं. कब से, तुम पूछते हो? {total_afk_time} मैं अनुमान.__\n\nमैं कब वापस आऊंगा? जल्द ही __जब भी मेरा मन करे वापस आने का__**नवरात्रि की शुभकामनाएँ**  "
         )
         msg = await event.reply(message_to_reply)
         await asyncio.sleep(5)
@@ -129,7 +129,7 @@ async def on_afk(event):
         last_afk_message[event.chat_id] = msg  # pylint:disable=E0602
 
 
-@borg.on(admin_cmd(pattern=r"afk ?(.*)", outgoing=True))  # pylint:disable=E0602
+@borg.on(admin_cmd(pattern=r"अफ ह हू ?(.*)", outgoing=True))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
