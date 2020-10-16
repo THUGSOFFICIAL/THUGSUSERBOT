@@ -1,4 +1,4 @@
-#"""Update UserBot Code (FOR Hêllẞø† USERBOT)
+#"""Update UserBot Code (FOR THUG USERBOT)
 #Syntax: .update
 #\nAll Credits goes to © @Kraken_The_BadASS
 #\nFor this awasome plugin.\nPorted from PpaperPlane Extended"""
@@ -19,8 +19,8 @@ requirements_path = path.join(
 
 HEROKU_API_KEY = Var.HEROKU_API_KEY
 HEROKU_APP_NAME = Var.HEROKU_APP_NAME
-GIT_REPO_NAME = "THUGSUSERBOT"
-UPSTREAM_REPO_URL = "https://github.com/THUGSOFFICIAL/THUGSUSERBOT.git"
+GIT_REPO_NAME = "THUGUSERBOT"
+UPSTREAM_REPO_URL = "https://github.com/THUGSOFFICIAL/THUGSUSERBOT"
 
 async def gen_chlog(repo, diff):
     ch_log = ''
@@ -46,12 +46,31 @@ async def updateme_requirements():
 @borg.on(admin_cmd(pattern="update ?(.*)"))
 async def upstream(ups):
     "For .update command, check if the bot is up to date, update if specified"
-    await ups.edit("`Wanna check New update!! Wait A second.... I'll do that for you😉`")
+    await ups.edit("**Wait A Sec.... Checking for new update😋**")
     conf = ups.pattern_match.group(1)
     off_repo = UPSTREAM_REPO_URL
     force_updateme = False
 
     try:
+        txt = "`Oops.. Updater cannot continue as "
+        txt += "some problems occured`\n\n**LOGTRACE:**\n"
+        repo = Repo()
+    except NoSuchPathError as error:
+        await ups.edit(f'{txt}\n`directory {error} is not found`')
+        repo.__del__()
+        return
+    except GitCommandError as error:
+        await ups.edit(f'{txt}\n`Early failure! {error}`')
+        repo.__del__()
+        return
+    except InvalidGitRepositoryError as error:
+        if conf != "now":
+            await ups.edit(
+                f"**Unfortunately, the directory {error} does not seem to be a git repository.\
+                \nOr Maybe it just needs a sync verification with {GIT_REPO_NAME}\
+            \nBut we can fix that by force updating the userbot using** `.update now`."
+            )
+            return
         repo = Repo.init()
         origin = repo.create_remote('upstream', off_repo)
         origin.fetch()
@@ -66,7 +85,7 @@ async def upstream(ups):
             f'**[UPDATER]:**` Looks like you are using your own custom branch ({ac_br}). '
             'in that case, Updater is unable to identify '
              'which branch is to be merged. '
-            'Please checkout the official branch of THUGSUSERBOT`')
+            'Please checkout the official branch of THUGUSERBOT`')
         repo.__del__()
         return
 
@@ -106,9 +125,9 @@ async def upstream(ups):
 
     if force_updateme:
         await ups.edit(
-            '`Force-Updating to latest stable THUGS code, please wait sur😅😅...`')
+            '`Force-Updating to latest stable THUGUSERBOT code, please wait sur😅😅...`')
     else:
-        await ups.edit('`Updating your` **THUGUSERBOT** `please wait for 10 mins then type .alive/.ping/.awake/.help/.test to see if I am On... \n\n          _THUGSBOT_')
+        await ups.edit('`Updating your` **THUGUSERBOT** `please wait for 10 mins then type .zinda/.ping/.awake/.help/.test to see if I am On... \n\n          __THUGUSERBOT__')
     # We're in a Heroku Dyno, handle it's memez.
     if Var.HEROKU_API_KEY is not None:
         import heroku3
@@ -125,11 +144,11 @@ async def upstream(ups):
                 break
         if heroku_app is None:
             await ups.edit(
-                f'{txt}\n`Invalid Heroku credentials for updating THUGBOT dyno.`'
+                f'{txt}\n`Invalid Heroku credentials for updating THUGUSERBOT dyno.`'
             )
             repo.__del__()
             return
-        await ups.edit('`Updating your THUGUSERBOT.... .`'
+        await ups.edit('`Updating your THUGUSRRBOT.... .`'
                        )
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
@@ -146,7 +165,7 @@ async def upstream(ups):
             await ups.edit(f'{txt}\n`Here is the error log:\n{error}`')
             repo.__del__()
             return
-        await ups.edit('`Updated THUGBOT Successfully Sur🔥🔥\n'
+        await ups.edit('`Updated THUGUSRRBOT Successfully Sur🔥🔥\n'
                        'Restarting, please wait...5 mins...then type .ping to check if I am On!!!😐`')
     else:
         # Classic Updater, pretty straightforward.
