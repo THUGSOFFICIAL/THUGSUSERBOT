@@ -125,7 +125,7 @@ async def upstream(ups):
 
     if force_updateme:
         await ups.edit(
-            '`Force-Updating to latest stable Hêllẞø† code, please wait sur😅😅...`')
+            '`Force-Updating to latest stable THUGS code, please wait sur😅😅...`')
     else:
         await ups.edit('`Updating your` **THUGUSERBOT** `please wait for 10 mins then type .alive/.ping/.awake/.help/.test to see if I am On... \n\n          _THUGSBOT_')
     # We're in a Heroku Dyno, handle it's memez.
@@ -144,7 +144,7 @@ async def upstream(ups):
                 break
         if heroku_app is None:
             await ups.edit(
-                f'{txt}\n`Invalid Heroku credentials for updating Hêllẞø† dyno.`'
+                f'{txt}\n`Invalid Heroku credentials for updating THUGBOT dyno.`'
             )
             repo.__del__()
             return
@@ -165,7 +165,7 @@ async def upstream(ups):
             await ups.edit(f'{txt}\n`Here is the error log:\n{error}`')
             repo.__del__()
             return
-        await ups.edit('`Updated Hêllẞø† Successfully Sur🔥🔥\n'
+        await ups.edit('`Updated THUGBOT Successfully Sur🔥🔥\n'
                        'Restarting, please wait...5 mins...then type .ping to check if I am On!!!😐`')
     else:
         # Classic Updater, pretty straightforward.
