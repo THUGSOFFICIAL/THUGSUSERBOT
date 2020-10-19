@@ -54,7 +54,7 @@ async def set_not_afk(event):
                 event.chat_id,
                 "Please set `PRIVATE_GROUP_BOT_API_ID` "
                 + "for the proper functioning of afk functionality "
-                + "Ask In support grp 👉👉👉[SUPPORT](https://t.me//THUGUSERBOTHELP)👈👈👈 grp to get help..\n\n `{}`".format(str(e)),
+                + "Ask In support grp 👉👉👉[SUPPORT](https://@THUGUSERBOTHELP)👈👈👈 grp to get help..\n\n `{}`".format(str(e)),
                 reply_to=event.message.id,
                 silent=True,
             )
@@ -117,10 +117,10 @@ async def on_afk(event):
         #           afk_since = f"`{int(seconds)}s` **ago**"
         msg = None
         message_to_reply = (
-            f"__मेरे मास्टर ऑफलाइन है__ `{total_afk_time}`\nवह कहाँ है: मैं दोस्त नहीं जानता..वह एक व्यस्त व्यक्ति है "
-            + f"\n\n__मैं आपको गारंटी नहीं दे सकता कि वह कब आएगा..__\n**ओह्ह !! उसने एक कारण छोड़ दिया**.🧐: {reason}"
+            f"__**Hello there my master is off if you ask from how much time__** `{total_afk_time}`\n **hmm if you ask where is he**  "
+            + f"\n\n__ even I don't know where is he🤔🤔.__\n** ohhh !! He left a reason**.🧐: {reason}"
             if reason
-            else f"**नमस्ते!**\n__मैं वर्तमान में अनुपलब्ध हूं. कब से, तुम पूछते हो? {total_afk_time} मैं अनुमान.__\n\nमैं कब वापस आऊंगा? जल्द ही __जब भी मेरा मन करे वापस आने का. **नवरात्रि की हार्दिक शुभकामनाएँ**  "
+            else f"**Hello !!**\n__ I am currently afk and it's my thugbot replaying you. If you ask from when ?? {total_afk_time} Please wait.__\n\n I will come back soon . **:)**  "
         )
         msg = await event.reply(message_to_reply)
         await asyncio.sleep(5)
@@ -129,7 +129,7 @@ async def on_afk(event):
         last_afk_message[event.chat_id] = msg  # pylint:disable=E0602
 
 
-@borg.on(admin_cmd(pattern=r"अफ ह हू ?(.*)", outgoing=True))  # pylint:disable=E0602
+@borg.on(admin_cmd(pattern=r"away ?(.*)", outgoing=True))  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
         return
